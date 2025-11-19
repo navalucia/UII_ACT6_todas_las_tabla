@@ -1,0 +1,72 @@
+{% extends 'app_gym/base.html' %}
+
+{% block title %}Actualizar Empleado{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card-header bg-primary text-white text-center">
+                <h3>Actualizar Empleado: {{ empleado.nombre }} {{ empleado.apellido }}</h3>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="id_nombre" name="nombre" value="{{ empleado.nombre }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="id_apellido" name="apellido" value="{{ empleado.apellido }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_puesto" class="form-label">Puesto</label>
+                        <input type="text" class="form-control" id="id_puesto" name="puesto" value="{{ empleado.puesto }}" placeholder="Ej: Instructor, Recepcionista" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_salario" class="form-label">Salario (Opcional)</label>
+                        <input type="number" step="0.01" class="form-control" id="id_salario" name="salario" value="{{ empleado.salario|default_if_none:'' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="id_email" name="email" value="{{ empleado.email }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_telefono" class="form-label">Teléfono (Opcional)</label>
+                        <input type="text" class="form-control" id="id_telefono" name="telefono" value="{{ empleado.telefono|default_if_none:'' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_clases_impartidas" class="form-label">Clases Impartidas (Opcional, selecciona múltiples con Ctrl/Cmd)</label>
+                        <select class="form-select" id="id_clases_impartidas" name="clases_impartidas" multiple>
+                            {% for clase in clases_disponibles %}
+                                <option value="{{ clase.pk }}" 
+                                    {% if clase.pk in clases_actualmente_impartidas_ids %}selected{% endif %}>
+                                    {{ clase.nombre_clase }} ({{ clase.horario }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg mt-3">
+                            <i class="fas fa-save me-2"></i> Guardar Cambios
+                        </button>
+                        <a href="{% url 'ver_empleados' %}" class="btn btn-secondary btn-lg mt-2">
+                            <i class="fas fa-arrow-left me-2"></i> Volver a Empleados
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'app_gym/base.html' %}
+
+{% block title %}Registrar Asistencia a Clase{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card-header bg-success text-white text-center">
+                <h3>Registrar Asistencia a Clase</h3>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_miembro" class="form-label">Miembro</label>
+                        <select class="form-select" id="id_miembro" name="miembro" required>
+                            <option value="">-- Seleccionar Miembro --</option>
+                            {% for miembro in miembros_disponibles %}
+                                <option value="{{ miembro.pk }}">{{ miembro.nombre }} {{ miembro.apellido }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_clase" class="form-label">Clase</label>
+                        <select class="form-select" id="id_clase" name="clase" required>
+                            <option value="">-- Seleccionar Clase --</option>
+                            {% for clase in clases_disponibles %}
+                                <option value="{{ clase.pk }}">{{ clase.nombre_clase }} ({{ clase.horario }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_fecha_registro" class="form-label">Fecha de Registro</label>
+                        <input type="date" class="form-control" id="id_fecha_registro" name="fecha_registro" value="{{ today }}">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="id_asistencia" name="asistencia" checked>
+                        <label class="form-check-label" for="id_asistencia">Asistió</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_calificacion_miembro" class="form-label">Calificación del Miembro (1-5, Opcional)</label>
+                        <select class="form-select" id="id_calificacion_miembro" name="calificacion_miembro">
+                            <option value="">-- Sin Calificación --</option>
+                            {% for i in "12345" %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg mt-3">
+                            <i class="fas fa-check-circle me-2"></i> Registrar Asistencia
+                        </button>
+                        <a href="{% url 'ver_registros_clase' %}" class="btn btn-secondary btn-lg mt-2">
+                            <i class="fas fa-arrow-left me-2"></i> Volver a Registros
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

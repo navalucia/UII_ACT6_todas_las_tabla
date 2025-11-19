@@ -1,0 +1,72 @@
+{% extends 'app_gym/base.html' %}
+
+{% block title %}Ver Clases{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card-header bg-dark text-white text-center d-flex justify-content-between align-items-center">
+                <h3>Clases Registradas</h3>
+                <a href="{% url 'agregar_clase' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus me-1"></i> Nueva Clase
+                </a>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if clases %}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Horario</th>
+                                    <th>Duración (min)</th>
+                                    <th>Cupo Máximo</th>
+                                    <th>Nivel</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for clase in clases %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ clase.nombre_clase }}</td>
+                                    <td>{{ clase.descripcion|truncatechars:50 }}</td>
+                                    <td>{{ clase.horario }}</td>
+                                    <td>{{ clase.duracion_minutos }}</td>
+                                    <td>{{ clase.cupo_maximo }}</td>
+                                    <td>{{ clase.nivel_dificultad }}</td>
+                                    <td>
+                                        <a href="{% url 'actualizar_clase' clase.pk %}" class="btn btn-warning btn-sm" title="Editar Clase">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'borrar_clase' clase.pk %}" class="btn btn-danger btn-sm" title="Eliminar Clase">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info text-center" role="alert">
+                        No hay clases registradas. ¡Empieza añadiendo una!
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

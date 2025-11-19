@@ -1,0 +1,57 @@
+{% extends 'app_gym/base.html' %}
+
+{% block title %}Agregar Membresía{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card-header bg-success text-white text-center">
+                <h3>Agregar Nueva Membresía</h3>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_nombre" class="form-label">Nombre de la Membresía</label>
+                        <input type="text" class="form-control" id="id_nombre" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_descripcion" class="form-label">Descripción (Opcional)</label>
+                        <textarea class="form-control" id="id_descripcion" name="descripcion" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_costo" class="form-label">Costo ($)</label>
+                        <input type="number" step="0.01" class="form-control" id="id_costo" name="costo" required min="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_acceso" class="form-label">Tipo de Acceso</label>
+                        <input type="text" class="form-control" id="id_acceso" name="acceso" placeholder="Ej: Acceso total, Solo máquinas, Clases limitadas" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="id_entrenador_personal_incluido" name="entrenador_personal_incluido">
+                        <label class="form-check-label" for="id_entrenador_personal_incluido">Incluye Entrenador Personal</label>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg mt-3">
+                            <i class="fas fa-plus me-2"></i> Añadir Membresía
+                        </button>
+                        <a href="{% url 'ver_membresias' %}" class="btn btn-secondary btn-lg mt-2">
+                            <i class="fas fa-arrow-left me-2"></i> Volver a Membresías
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

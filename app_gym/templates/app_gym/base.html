@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Administración Gym{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+            padding-bottom: 70px; /* Espacio para el footer fijo */
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 60px; /* Altura del footer */
+            background-color: #f8f9fa; /* Color de fondo suave */
+            color: #6c757d; /* Color de texto suave */
+            line-height: 60px; /* Centrar verticalmente el texto */
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+        }
+        .navbar {
+            background-color: #343a40 !important; /* Navbar oscuro */
+        }
+        .navbar .nav-link, .navbar .navbar-brand, .navbar .dropdown-item {
+            color: #f8f9fa !important; /* Texto blanco para la navbar */
+        }
+        .navbar .nav-link:hover, .navbar .dropdown-item:hover {
+            color: #adb5bd !important; /* Gris claro al pasar el ratón */
+        }
+        .btn-primary {
+            background-color: #6f42c1; /* Púrpura suave */
+            border-color: #6f42c1;
+        }
+        .btn-primary:hover {
+            background-color: #5a3699;
+            border-color: #5a3699;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #343a40; /* Texto oscuro para contraste */
+        }
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+        .table thead {
+            background-color: #e9ecef; /* Cabecera de tabla suave */
+        }
+        .table tbody tr:nth-of-type(odd) {
+            background-color: rgba(0,0,0,.05); /* Rayas suaves para la tabla */
+        }
+        .card {
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,.075);
+        }
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        .messages li {
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+        }
+        .messages .success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .messages .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .img-thumbnail {
+            width: 100px; /* Tamaño de miniatura */
+            height: 100px;
+            object-fit: cover; /* Recortar y centrar la imagen */
+        }
+    </style>
+</head>
+<body>
+    {% include 'app_gym/navbar.html' %}
+
+    <div class="content container mt-4">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+
+    {% include 'app_gym/footer.html' %}
+
+    <!-- Bootstrap JS y Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

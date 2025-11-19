@@ -1,0 +1,74 @@
+{% extends 'app_gym/base.html' %}
+
+{% block title %}Actualizar Clase{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card-header bg-primary text-white text-center">
+                <h3>Actualizar Clase: {{ clase.nombre_clase }}</h3>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="id_nombre_clase" class="form-label">Nombre de la Clase</label>
+                        <input type="text" class="form-control" id="id_nombre_clase" name="nombre_clase" value="{{ clase.nombre_clase }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="id_descripcion" name="descripcion" rows="3">{{ clase.descripcion }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_horario" class="form-label">Horario</label>
+                        <input type="text" class="form-control" id="id_horario" name="horario" value="{{ clase.horario }}" placeholder="Ej: Lunes, Miércoles y Viernes 08:00 - 09:00">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_duracion_minutos" class="form-label">Duración (minutos)</label>
+                        <input type="number" class="form-control" id="id_duracion_minutos" name="duracion_minutos" value="{{ clase.duracion_minutos }}" required min="1">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_cupo_maximo" class="form-label">Cupo Máximo</label>
+                        <input type="number" class="form-control" id="id_cupo_maximo" name="cupo_maximo" value="{{ clase.cupo_maximo }}" required min="1">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_nivel_dificultad" class="form-label">Nivel de Dificultad</label>
+                        <select class="form-select" id="id_nivel_dificultad" name="nivel_dificultad" required>
+                            {% for choice_value, choice_label in niveles_dificultad %}
+                                <option value="{{ choice_value }}" {% if clase.nivel_dificultad == choice_value %}selected{% endif %}>
+                                    {{ choice_label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg mt-3">
+                            <i class="fas fa-save me-2"></i> Guardar Cambios
+                        </button>
+                        <a href="{% url 'ver_clases' %}" class="btn btn-secondary btn-lg mt-2">
+                            <i class="fas fa-arrow-left me-2"></i> Volver a Clases
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

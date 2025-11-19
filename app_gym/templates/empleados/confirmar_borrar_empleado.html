@@ -1,0 +1,35 @@
+{% extends 'app_gym/base.html' %}
+
+{% block title %}Confirmar Eliminación de Empleado{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-lg p-3 mb-5 bg-body rounded border-danger">
+            <div class="card-header bg-danger text-white text-center">
+                <h3>Confirmar Eliminación</h3>
+            </div>
+            <div class="card-body text-center">
+                <p class="lead">¿Estás seguro de que quieres eliminar al empleado <strong>"{{ empleado.nombre }} {{ empleado.apellido }}"</strong>?</p>
+                {% if empleado.clases_impartidas.all %}
+                    <p class="text-warning"><small>Este empleado imparte las siguientes clases: 
+                        {% for clase in empleado.clases_impartidas.all %}
+                            {{ clase.nombre_clase }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}.
+                    </small></p>
+                {% endif %}
+                <p class="text-danger">¡Esta acción es irreversible!</p>
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-lg me-2">
+                        <i class="fas fa-trash-alt me-2"></i> Eliminar
+                    </button>
+                    <a href="{% url 'ver_empleados' %}" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-times me-2"></i> Cancelar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

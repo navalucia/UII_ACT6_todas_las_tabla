@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'inicio_gym' %}">
+            <i class="fas fa-dumbbell me-2"></i>Sistema de Administración Gym
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'inicio_gym' %}">
+                        <i class="fas fa-home me-1"></i>Inicio
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="miembroDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-users me-1"></i>Miembros
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="miembroDropdown">
+                        <li><a class="dropdown-item" href="{% url 'agregar_miembro' %}">Agregar Miembro</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_miembros' %}">Ver Miembros</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="claseDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-chalkboard-teacher me-1"></i>Clases
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="claseDropdown">
+                        <li><a class="dropdown-item" href="{% url 'agregar_clase' %}">Agregar Clase</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_clases' %}">Ver Clases</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="empleadoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-tie me-1"></i>Empleados
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="empleadoDropdown">
+                        <li><a class="dropdown-item" href="{% url 'agregar_empleado' %}">Agregar Empleado</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_empleados' %}">Ver Empleados</a></li>
+                    </ul>
+                </li>
+                {# NUEVO DROPDOWN PARA MEMBRESIAS #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="membresiaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-id-card me-1"></i>Membresías
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="membresiaDropdown">
+                        <li><a class="dropdown-item" href="{% url 'agregar_membresia' %}">Agregar Membresía</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_membresias' %}">Ver Membresías</a></li>
+                    </ul>
+                </li>
+                {# NUEVO DROPDOWN PARA REGISTROS DE CLASE #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="registroClaseDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-clipboard-list me-1"></i>Registros Clase
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="registroClaseDropdown">
+                        <li><a class="dropdown-item" href="{% url 'agregar_registro_clase' %}">Registrar Asistencia</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_registros_clase' %}">Ver Registros</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

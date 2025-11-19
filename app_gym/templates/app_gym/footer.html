@@ -1,0 +1,13 @@
+<footer class="footer">
+    <div class="container">
+        <span>&copy; {{ current_year }} Sistema de Administración Gym. Creado por Lucia Nava, Cbtis 128.</span>
+    </div>
+</footer>
+
+<script>
+    // Script para obtener el año actual dinámicamente
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentYear = new Date().getFullYear();
+        document.querySelector('.footer span').innerHTML = `&copy; ${currentYear} Sistema de Administración Gym. Creado por Lucia Nava, Cbtis 128.`;
+    });
+</script>

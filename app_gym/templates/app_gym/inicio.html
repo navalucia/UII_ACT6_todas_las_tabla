@@ -1,0 +1,25 @@
+{% extends 'app_gym/base.html' %}
+{% load static %} {# ¡Necesario ahora que usas una imagen estática local! #}
+
+{% block title %}Inicio - GYM{% endblock %}
+
+{% block content %}
+{# ... todo el contenido anterior ... #}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card-body">
+                <h5 class="card-title text-center mb-3" style="color: #343a40;">Tu aliado para un gimnasio exitoso</h5>
+                {# ¡CAMBIAMOS LA URL A UNA IMAGEN ESTÁTICA LOCAL! #}
+                <img src="{% static 'img/gym.jpg' %}"
+                    class="img-fluid rounded shadow-sm mb-4"
+                    alt="Gimnasio Moderno"
+                    style="max-height: 400px; object-fit: cover;">
+                <p class="card-text" style="color: #6c757d;">
+                    Con un diseño intuitivo y herramientas potentes, te facilitamos la administración diaria para que puedas enfocarte en lo que realmente importa: el bienestar de tus clientes.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
